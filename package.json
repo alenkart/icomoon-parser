@@ -1,5 +1,5 @@
 {
-  "name": "icomoon-parser",
+  "name": "@alenkart/icomoon-parser",
   "version": "1.0.0",
   "description": "Parse the IcoMoon json file",
   "main": "dist/index.js",
