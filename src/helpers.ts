@@ -1,37 +1,49 @@
 import * as fs from "fs/promises";
+import * as path from "path";
+
 import { IconMoon, Icons } from "./types";
 
-/**
- * @param filename - input path.
- * @param path - output path
- */
-export async function parseIcons(filename: string, path: string) {
-  const icons = await readFile(filename);
+export async function parseIcons(inputPath: string, outputPath: string = "") {
+  try {
+    if (!inputPath) {
+      throw new Error("Input path is undefined");
+    }
 
-  generateTypes(icons, path);
-  generateJson(icons, path);
+    if (!outputPath) {
+      outputPath = inputPath;
+    }
+
+    const raw = await fs.readFile(inputPath, { encoding: "utf8" });
+
+    const iconMoon = JSON.parse(raw) as IconMoon;
+    const icons = mapIcons(iconMoon);
+
+    await fs.writeFile(
+      path.resolve(outputPath, "/types.ts"),
+      generateTypes(icons)
+    );
+
+    await fs.writeFile(
+      path.resolve(outputPath, "/icons.json"),
+      generateJson(icons)
+    );
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export async function readFile(filename: string) {
-  const raw = await fs.readFile(filename, { encoding: "utf8" });
-
-  const { selection = [], icons = [] } = JSON.parse(raw) as IconMoon;
-
+export function mapIcons({ selection = [], icons = [] }: IconMoon) {
   return selection.map((item, index) => ({
     name: item.name,
     paths: icons[index].paths,
   }));
 }
 
-export async function generateTypes(icons: Icons = [], path: string) {
+export function generateTypes(icons: Icons) {
   const iconNames = icons.map((icon) => `'${icon.name}'`);
-  const content = ["export type IconName =", ...iconNames].join("\n  | ");
-
-  await fs.writeFile(`${path}/icons.ts`, content);
+  return ["export type IconName =", ...iconNames].join("\n  | ");
 }
 
-export async function generateJson(icons: Icons = [], path: string) {
-  const content = JSON.stringify(icons, null, 2);
-
-  await fs.writeFile(`${path}/icons.json`, content);
+export function generateJson(icons: Icons) {
+  return JSON.stringify(icons, null, 2);
 }
