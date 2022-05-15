@@ -1,7 +1,7 @@
 {
   "name": "icomoon-parser",
   "version": "1.0.0",
-  "description": "",
+  "description": "Parse the IcoMoon json file",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "publish": "tsc && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Alenkart Rodriguez <alenkart.r@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.33",
