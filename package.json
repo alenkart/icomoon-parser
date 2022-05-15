@@ -1,6 +1,7 @@
 {
-  "name": "@alenkart/icomoon-parser",
+  "name": "parse-icomoon",
   "version": "1.0.1",
+  "author": "Alenkart Rodriguez <alenkart.r@gmail.com>",
   "description": "Parse the IcoMoon json file",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,13 +10,9 @@
     "publish": "tsc && npm publish",
     "test": "exit 0"
   },
-  "author": "Alenkart Rodriguez <alenkart.r@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^17.0.33",
     "typescript": "^4.6.4"
-  },
-  "publishConfig": {
-    "@alenkart:registry": "https://npm.pkg.github.com"
   }
 }
