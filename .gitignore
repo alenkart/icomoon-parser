@@ -1,5 +1,6 @@
 # Dependency directory
 node_modules/
+
 # Editors
 .idea
 *.iml
@@ -10,3 +11,7 @@ Thumbs.db
 
 # Ignore built ts files
 dist/
+
+# Configs
+.npmrc
+.env
