@@ -16,6 +16,6 @@
     "typescript": "^4.6.4"
   },
   "publishConfig": {
-    "@YOUR-USERNAME:registry": "https://npm.pkg.github.com"
+    "@alenkart:registry": "https://npm.pkg.github.com"
   }
 }
