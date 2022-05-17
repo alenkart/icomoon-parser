@@ -1,16 +1,15 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 
-import { IconMoon, Icons } from "./types";
+import { IconMap, IconMoon } from "./types";
 
-export async function parseIcons(inputPath: string, outputPath: string = "") {
+export async function parseIcons(
+  inputPath: string,
+  outputPath: string = '.'
+) {
   try {
     if (!inputPath) {
       throw new Error("Input path is undefined");
-    }
-
-    if (!outputPath) {
-      outputPath = inputPath;
     }
 
     const raw = await fs.readFile(inputPath, { encoding: "utf8" });
@@ -19,12 +18,12 @@ export async function parseIcons(inputPath: string, outputPath: string = "") {
     const icons = mapIcons(iconMoon);
 
     await fs.writeFile(
-      path.resolve(outputPath, "/types.ts"),
+      path.resolve(outputPath, "types.ts"),
       generateTypes(icons)
     );
 
     await fs.writeFile(
-      path.resolve(outputPath, "/icons.json"),
+      path.resolve(outputPath, "icons.json"),
       generateJson(icons)
     );
   } catch (error) {
@@ -33,17 +32,17 @@ export async function parseIcons(inputPath: string, outputPath: string = "") {
 }
 
 export function mapIcons({ selection = [], icons = [] }: IconMoon) {
-  return selection.map((item, index) => ({
-    name: item.name,
-    paths: icons[index].paths,
-  }));
+  return selection.reduce<IconMap>((map, current, index) => {
+    map[current.name] = icons[index];
+    return map;
+  }, {});
 }
 
-export function generateTypes(icons: Icons) {
-  const iconNames = icons.map((icon) => `'${icon.name}'`);
+export function generateTypes(iconMap: IconMap) {
+  const iconNames = Object.keys(iconMap).map((name) => `'${name}'`);
   return ["export type IconName =", ...iconNames].join("\n  | ");
 }
 
-export function generateJson(icons: Icons) {
-  return JSON.stringify(icons, null, 2);
+export function generateJson(iconMap: IconMap) {
+  return JSON.stringify(iconMap, null, 2);
 }

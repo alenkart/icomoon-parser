@@ -1,9 +1,9 @@
 // IconMoon Types
-export type Selection = {
+type Selection = {
   name: string;
 };
 
-export type Icon = {
+type Icon = {
   paths: string[];
 };
 
@@ -13,7 +13,4 @@ export type IconMoon = {
 };
 
 // Parser Types
-export type Icons = {
-  name: string;
-  paths: string[];
-}[];
+export type IconMap = Record<string, Icon>;
