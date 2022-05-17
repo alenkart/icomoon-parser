@@ -1,11 +1,15 @@
 {
   "name": "parse-icomoon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Alenkart Rodriguez <alenkart.r@gmail.com>",
   "description": "Parse the IcoMoon json file",
   "license": "ISC",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "/bin",
+    "/lib"
+  ],
   "scripts": {
     "build": "rollup -c",
     "link": "npm run build && npm link",
