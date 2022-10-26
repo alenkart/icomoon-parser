@@ -1,6 +1,7 @@
 // IconMoon Types
 type Selection = {
-  name: string;
+  name?: string;
+  order: number;
 };
 
 type Icon = {

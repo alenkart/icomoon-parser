@@ -3,10 +3,7 @@ import * as path from "path";
 
 import { IconMap, IconMoon } from "./types";
 
-export async function parseIcons(
-  inputPath: string,
-  outputPath: string = '.'
-) {
+export async function parseIcons(inputPath: string, outputPath: string = ".") {
   try {
     if (!inputPath) {
       throw new Error("Input path is undefined");
@@ -33,7 +30,7 @@ export async function parseIcons(
 
 export function mapIcons({ selection = [], icons = [] }: IconMoon) {
   return selection.reduce<IconMap>((map, current, index) => {
-    map[current.name] = icons[index];
+    map[current?.name || `i${current.order}`] = icons[index];
     return map;
   }, {});
 }

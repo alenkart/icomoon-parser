@@ -16,3 +16,7 @@ lib/
 .npmrc
 .env
 .vscode
+
+types.ts
+icomoon.json
+icons.json
